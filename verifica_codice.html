@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Verifica Codice</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .box {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    input {
-      padding: 10px;
-      font-size: 16px;
-      width: 80%;
-      margin-bottom: 15px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #2196F3;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #1976D2;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verifica Codice</title>
+<style>
+  body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:#0b1220; color:#e5e7eb; min-height:100dvh; display:grid; place-items:center; padding:24px}
+  .card{width:100%; max-width:560px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:22px}
+  h1{margin:0 0 12px; font-size:clamp(22px,4vw,30px)}
+  p{margin:0 0 16px; color:#94a3b8}
+  .row{display:flex; gap:10px}
+  input{flex:1; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.18); background:#0f172a; color:#e5e7eb; font-weight:700; letter-spacing:1px; text-transform:uppercase}
+  button{padding:12px 16px; border-radius:12px; border:none; background:#60a5fa; color:#062138; font-weight:800; cursor:pointer}
+  .msg{margin-top:12px; color:#fca5a5}
+  a{color:#93c5fd}
+</style>
 </head>
 <body>
-  <div class="box">
-    <h2>Inserisci il Codice</h2>
-    <input type="text" id="codeInput" placeholder="Codice ricevuto...">
-    <br>
-    <button onclick="verifica()">Verifica</button>
+  <div class="card">
+    <h1>Verifica codice</h1>
+    <p>Inserisci il codice alfanumerico di 8 caratteri e premi invio.</p>
+    <div class="row">
+      <input id="code" maxlength="8" placeholder="XXXXXXXX" autocomplete="off" autofocus>
+      <button id="go">Vai</button>
+    </div>
+    <div id="msg" class="msg"></div>
+    <p style="margin-top:12px"><a href="index.html">← Torna alla home</a></p>
   </div>
-
-  <script>
-    const mappaCodici = {
-      "OSIO123A": "enigma1.html",
-      "OSIO123B": "enigma2.html",
-      "OSIO123C": "enigma3.html",
-      "OSIO123D": "enigma4.html",
-      "OSIO123E": "enigma5.html"
-    };
-
-    function verifica() {
-      const codice = document.getElementById('codeInput').value.trim().toUpperCase();
-      if (mappaCodici[codice]) {
-        window.location.href = mappaCodici[codice];
-      } else {
-        alert("Codice non valido.");
-      }
+<script>
+async function loadConfig(){
+  const res = await fetch('config.json', {cache:'no-store'});
+  if(!res.ok) throw new Error('Impossibile caricare config.json');
+  const cfg = await res.json();
+  return cfg.targets;
+}
+async function check(){
+  const code = document.getElementById('code').value.trim().toUpperCase();
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
+  if(code.length !== 8){ msg.textContent='Il codice deve avere 8 caratteri.'; return; }
+  try{
+    const targets = await loadConfig();
+    const match = targets.find(t => t.code.toUpperCase() === code);
+    if(match){
+      location.href = `enigma${match.enigma}.html`;
+    }else{
+      msg.textContent = 'Codice non valido. Riprova.';
     }
-  </script>
+  }catch(e){
+    msg.textContent = 'Errore: ' + (e.message || e);
+  }
+}
+document.getElementById('go').addEventListener('click', check);
+document.getElementById('code').addEventListener('keydown', e => { if(e.key==='Enter') check(); });
+</script>
 </body>
 </html>

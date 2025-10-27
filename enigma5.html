@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enigma 5</title>
+<style>
+  body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:#0b1220; color:#e5e7eb; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px}
+  .wrap{width:100%; max-width:920px}
+  .head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  h1{margin:0; font-size:clamp(22px,4.8vw,36px)}
+  .sub{color:#94a3b8}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
+  .chest{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:16px; text-align:center}
+  .svg{width:100%; height:140px; margin-bottom:10px}
+  .phrase{color:#cbd5e1}
+  a{color:#93c5fd}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head"><h1>Enigma 5</h1><span class="sub">Regola: Tutte e tre le frasi non possono essere vere contemporaneamente.</span></div>
+    <div class="grid">
+      <div class="chest">
+        <svg class="svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scrigno">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect x="15" y="40" width="170" height="60" rx="8" fill="url(#g1)" stroke="#78350f" stroke-width="3"/>
+  <rect x="15" y="20" width="170" height="30" rx="8" fill="url(#g2)" stroke="#78350f" stroke-width="3"/>
+  <rect x="95" y="65" width="10" height="20" rx="2" fill="#111827" stroke="#eab308" stroke-width="2"/>
+  <circle cx="100" cy="75" r="3" fill="#facc15"/>
+</svg>
+        <div class="phrase"><strong>Scrigno A</strong><br>Scrigno A: Il tesoro è nello scrigno C.</div>
+      </div>
+      <div class="chest">
+        <svg class="svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scrigno">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect x="15" y="40" width="170" height="60" rx="8" fill="url(#g1)" stroke="#78350f" stroke-width="3"/>
+  <rect x="15" y="20" width="170" height="30" rx="8" fill="url(#g2)" stroke="#78350f" stroke-width="3"/>
+  <rect x="95" y="65" width="10" height="20" rx="2" fill="#111827" stroke="#eab308" stroke-width="2"/>
+  <circle cx="100" cy="75" r="3" fill="#facc15"/>
+</svg>
+        <div class="phrase"><strong>Scrigno B</strong><br>Scrigno B: Il tesoro non è qui dentro.</div>
+      </div>
+      <div class="chest">
+        <svg class="svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scrigno">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect x="15" y="40" width="170" height="60" rx="8" fill="url(#g1)" stroke="#78350f" stroke-width="3"/>
+  <rect x="15" y="20" width="170" height="30" rx="8" fill="url(#g2)" stroke="#78350f" stroke-width="3"/>
+  <rect x="95" y="65" width="10" height="20" rx="2" fill="#111827" stroke="#eab308" stroke-width="2"/>
+  <circle cx="100" cy="75" r="3" fill="#facc15"/>
+</svg>
+        <div class="phrase"><strong>Scrigno C</strong><br>Scrigno C: Il tesoro non è nello scrigno A.</div>
+      </div>
+    </div>
+    <p style="margin-top:16px"><a href="verifica_codice.html">← Torna alla verifica codice</a></p>
+  </div>
+</body>
+</html>
