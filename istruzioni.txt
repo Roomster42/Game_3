@@ -1,11 +1,11 @@
 ISTRUZIONI DI GIOCO
 
-1. Apri il file "index.html" su uno smartphone con GPS attivo.
-2. Premi il pulsante "Verifica la tua posizione" quando credi di essere in un punto obiettivo.
-3. Se ti trovi entro 30 metri da uno dei cinque punti configurati, apparirà un codice.
-4. Copia il codice ricevuto.
-5. Apri il file "verifica_codice.html" e inserisci il codice.
-6. Verrai reindirizzato a una pagina con tre scrigni e tre frasi.
-7. Risolvi l'enigma logico per capire qual è lo scrigno corretto.
+1. Apri "index.html" su uno smartphone con GPS attivo.
+2. Premi "Verifica la tua posizione" quando pensi di essere vicino a un punto obiettivo.
+3. Se sei entro 30 metri da un punto, otterrai un codice alfanumerico.
+4. Copia il codice.
+5. Apri "verifica_codice.html" e inserisci il codice.
+6. Verrai indirizzato a un enigma con 3 scrigni e 3 frasi.
+7. Rifletti su quale scrigno contiene il tesoro.
 
-Buon divertimento!
+Buona fortuna!

@@ -3,22 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>Enigma 3</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #fffbe6;
+      padding: 40px;
+    }
+    .scrigno {
+      display: inline-block;
+      margin: 20px;
+      padding: 20px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      width: 200px;
+      background: #f9f9f9;
+    }
+  </style>
 </head>
 <body>
   <h2>Enigma 3</h2>
-  <div style="display:flex; gap:20px;">
-    <div>
-      <img src="scrigno.png" alt="Scrigno 1" width="100"/>
-      <p>Frase enigmatica A 3</p>
-    </div>
-    <div>
-      <img src="scrigno.png" alt="Scrigno 2" width="100"/>
-      <p>Frase enigmatica B 3</p>
-    </div>
-    <div>
-      <img src="scrigno.png" alt="Scrigno 3" width="100"/>
-      <p>Frase enigmatica C 3</p>
-    </div>
+  <p>Quale scrigno contiene il tesoro?</p>
+  <div class="scrigno">
+    <strong>Scrigno 1</strong>
+    <p>Frase enigmatica A3</p>
+  </div>
+  <div class="scrigno">
+    <strong>Scrigno 2</strong>
+    <p>Frase enigmatica B3</p>
+  </div>
+  <div class="scrigno">
+    <strong>Scrigno 3</strong>
+    <p>Frase enigmatica C3</p>
   </div>
 </body>
 </html>

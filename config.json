@@ -2,38 +2,28 @@
   "targets": [
     {
       "code": "OSIO123A",
-      "easting": 545926,
-      "northing": 5151562,
-      "zone": 32,
-      "hemisphere": "N"
+      "latitude": 45.6395,
+      "longitude": 9.5805
     },
     {
       "code": "OSIO123B",
-      "easting": 545940,
-      "northing": 5151600,
-      "zone": 32,
-      "hemisphere": "N"
+      "latitude": 45.64,
+      "longitude": 9.581
     },
     {
       "code": "OSIO123C",
-      "easting": 545960,
-      "northing": 5151650,
-      "zone": 32,
-      "hemisphere": "N"
+      "latitude": 45.6385,
+      "longitude": 9.582
     },
     {
       "code": "OSIO123D",
-      "easting": 545980,
-      "northing": 5151700,
-      "zone": 32,
-      "hemisphere": "N"
+      "latitude": 45.639,
+      "longitude": 9.5795
     },
     {
       "code": "OSIO123E",
-      "easting": 546000,
-      "northing": 5151750,
-      "zone": 32,
-      "hemisphere": "N"
+      "latitude": 45.6405,
+      "longitude": 9.5785
     }
   ]
 }
