@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verifica Posizione – UTM (WGS84)</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#111827; --muted:#94a3b8; --accent:#22c55e; --danger:#ef4444; --card:#0b1220; --ring:#60a5fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; background:radial-gradient(1200px 700px at 80% -10%,#1e293b 0%,var(--bg) 60%); color:#e5e7eb; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .wrap{width:100%; max-width:840px;}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(6px); border-radius:20px; padding:24px; box-shadow:0 20px 60px rgba(2,6,23,.45);}
+  h1{margin:0 0 8px; font-size:clamp(22px,5vw,34px); letter-spacing:.2px}
+  p.lead{margin:0 0 16px; color:var(--muted)}
+  button{appearance:none; border:none; background:conic-gradient(from 120deg,#22c55e,#16a34a,#22c55e); color:#052e16; font-weight:700; padding:14px 18px; border-radius:14px; cursor:pointer; width:100%; font-size:18px; box-shadow:0 10px 30px rgba(34,197,94,.25);}
+  button:active{transform:translateY(1px)}
+  .row{display:grid; grid-template-columns:1fr; gap:14px; margin-top:16px}
+  .out{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px}
+  .label{color:var(--muted); font-size:12px; letter-spacing:.4px; text-transform:uppercase}
+  .value{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; font-size:15px; margin-top:6px; word-break:break-word}
+  .status{margin-top:12px; padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,.08)}
+  .ok{background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.35); color:#bbf7d0}
+  .bad{background:rgba(239,68,68,.12); border-color:rgba(239,68,68,.35); color:#fecaca}
+  .linkbar{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+  .linkbar a{color:#93c5fd; text-decoration:none; background:rgba(59,130,246,.12); padding:8px 12px; border-radius:12px; border:1px solid rgba(59,130,246,.35)}
+  .foot{margin-top:16px; color:var(--muted); font-size:12px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Verifica la tua posizione</h1>
+      <p class="lead">Sistema di controllo distanza dai punti obiettivo (raggio 30&nbsp;m). Coordinate in UTM per debug.</p>
+      <button id="btn">Verifica la tua posizione</button>
+      <div class="row">
+        <div class="out">
+          <div class="label">Coordinate GPS (UTM – WGS84)</div>
+          <div id="coord" class="value">—</div>
+        </div>
+        <div class="out">
+          <div class="label">Esito</div>
+          <div id="esito" class="status">Premi il bottone per iniziare.</div>
+        </div>
+      </div>
+      <div class="linkbar">
+        <a href="verifica_codice.html">Hai un codice? Verificalo qui</a>
+      </div>
+      <div class="foot">Suggerimento: consenti l'accesso alla posizione. Funziona anche in PWA/standalone se salvato sul dispositivo.</div>
+    </div>
+  </div>
+
+<script>
+/* --- UTM/WGS84 conversion utilities (revised, Snyder formulas) --- */
+const WGS84 = { a: 6378137.0, f: 1/298.257223563 };
+WGS84.e2 = 2*WGS84.f - WGS84.f*WGS84.f;
+WGS84.ep2 = WGS84.e2/(1 - WGS84.e2);
+const k0 = 0.9996;
+
+function latBandLetter(latDeg){
+  const bands = "CDEFGHJKLMNPQRSTUVWX"; // X covers 72–84°
+  if (latDeg <= -80) return "C";
+  if (latDeg >= 84) return "X";
+  const idx = Math.floor((latDeg + 80) / 8);
+  return bands[idx];
+}
+
+function latLonToUTM(latDeg, lonDeg){
+  const lat = latDeg * Math.PI/180;
+  const lon = lonDeg * Math.PI/180;
+  const zone = Math.floor((lonDeg + 180)/6) + 1;
+  const lambda0 = ((zone*6 - 183) * Math.PI/180);
+
+  const e2 = WGS84.e2, ep2 = WGS84.ep2, a=WGS84.a;
+  const sinφ = Math.sin(lat), cosφ = Math.cos(lat), tanφ = Math.tan(lat);
+  const N = a / Math.sqrt(1 - e2 * sinφ*sinφ);
+  const T = tanφ*tanφ;
+  const C = ep2 * cosφ*cosφ;
+  const A = cosφ * (lon - lambda0);
+
+  // Meridional arc (Snyder)
+  const e4 = e2*e2, e6 = e4*e2;
+  const M = a * ((1 - e2/4 - 3*e4/64 - 5*e6/256)*lat
+       - (3*e2/8 + 3*e4/32 + 45*e6/1024)*Math.sin(2*lat)
+       + (15*e4/256 + 45*e6/1024)*Math.sin(4*lat)
+       - (35*e6/3072)*Math.sin(6*lat));
+
+  const easting = 500000 + k0 * N * (A + (1 - T + C)*A**3/6 + (5 - 18*T + T**2 + 72*C - 58*ep2)*A**5/120);
+  let northing = k0 * (M + N * tanφ * (A**2/2 + (5 - T + 9*C + 4*C**2)*A**4/24 + (61 - 58*T + T**2 + 600*C - 330*ep2)*A**6/720));
+
+  const band = latBandLetter(latDeg);
+  if (latDeg < 0) northing += 10000000;
+
+  return {zone, band, easting: Math.round(easting), northing: Math.round(northing)};
+}
+
+function utmToLatLon(zone, band, easting, northing){
+  const northern = (band !== 'S'); 
+  const e2 = WGS84.e2, ep2=WGS84.ep2, a=WGS84.a;
+  const x = easting - 500000;
+  let y = northing;
+  if(!northern){ y -= 10000000; }
+  const lambda0 = ((zone*6 - 183) * Math.PI/180);
+
+  // Inverse (Snyder)
+  const e1 = (1 - Math.sqrt(1 - e2)) / (1 + Math.sqrt(1 - e2));
+  const M = y / k0;
+  const mu = M / (a*(1 - e2/4 - 3*e2*e2/64 - 5*e2*e2*e2/256));
+
+  const J1 = (3*e1/2 - 27*e1**3/32);
+  const J2 = (21*e1*e1/16 - 55*e1**4/32);
+  const J3 = (151*e1**3/96);
+  const J4 = (1097*e1**4/512);
+
+  const φ1 = mu + J1*Math.sin(2*mu) + J2*Math.sin(4*mu) + J3*Math.sin(6*mu) + J4*Math.sin(8*mu);
+  const sinφ1 = Math.sin(φ1), cosφ1=Math.cos(φ1), tanφ1=Math.tan(φ1);
+
+  const N1 = a / Math.sqrt(1 - e2*sinφ1*sinφ1);
+  const R1 = a*(1 - e2)/Math.pow(1 - e2*sinφ1*sinφ1, 1.5);
+  const D = x/(N1*k0);
+  const T1 = tanφ1*tanφ1;
+  const C1 = ep2 * cosφ1*cosφ1;
+
+  const lat = φ1 - (N1*tanφ1/R1) * ( D*D/2 - (5 + 3*T1 + 10*C1 - 4*C1*C1 - 9*ep2)*Math.pow(D,4)/24 + (61 + 90*T1 + 298*C1 + 45*T1*T1 - 252*ep2 - 3*C1*C1)*Math.pow(D,6)/720 );
+  const lon = lambda0 + ( D - (1 + 2*T1 + C1)*Math.pow(D,3)/6 + (5 - 2*C1 + 28*T1 - 3*C1*C1 + 8*ep2 + 24*T1*T1)*Math.pow(D,5)/120 )/cosφ1;
+
+  return {lat: lat*180/Math.PI, lon: lon*180/Math.PI};
+}
+
+function haversine(lat1, lon1, lat2, lon2){
+  const R = 6371000;
+  const toRad = x => x*Math.PI/180;
+  const dlat = toRad(lat2-lat1);
+  const dlon = toRad(lon2-lon1);
+  const a = Math.sin(dlat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dlon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
+
+async function loadConfig(){
+  const res = await fetch('config.json', {cache:'no-store'});
+  if(!res.ok) throw new Error('Impossibile caricare config.json');
+  const cfg = await res.json();
+  return cfg.targets;
+}
+
+function show(msg, cls){
+  const el = document.getElementById('esito');
+  el.className = 'status ' + (cls||'');
+  el.textContent = msg;
+}
+
+document.getElementById('btn').addEventListener('click', async () => {
+  try{
+    show('Lettura della posizione in corso…');
+    const targets = await loadConfig();
+    const pos = await new Promise((resolve,reject)=>{
+      navigator.geolocation.getCurrentPosition(resolve, reject, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+    });
+    const {latitude, longitude, accuracy} = pos.coords;
+    const utm = latLonToUTM(latitude, longitude);
+    document.getElementById('coord').textContent = `${utm.zone}${utm.band} ${utm.easting}E ${utm.northing}N (±${Math.round(accuracy)} m)`;
+
+    // compute distance to each target (convert target UTM -> lat/lon, then Haversine)
+    let best = null;
+    for(const t of targets){
+      const latlon = utmToLatLon(parseInt(t.zone,10), t.band, t.easting, t.northing);
+      const d = haversine(latitude, longitude, latlon.lat, latlon.lon);
+      if(!best || d < best.d) best = {t, d};
+    }
+
+    if(best && best.d <= 30){
+      show(`✅ Sei entro ${Math.round(best.d)} m da “${best.t.name}”. CODICE: ${best.t.code}`, 'ok');
+    }else{
+      const msg = best ? `❌ Non sei entro 30 m di un punto. Distanza minima rilevata: ${Math.round(best.d)} m.` : '❌ Nessun punto obiettivo trovato.';
+      show(msg, 'bad');
+    }
+  }catch(err){
+    show('Errore: ' + (err.message || err), 'bad');
+  }
+});
+</script>
+</body>
+</html>
