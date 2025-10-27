@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Verifica Posizione</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.2/proj4.js"></script>
+</head>
+<body>
+  <h1>Controllo Posizione</h1>
+  <button id="checkPosition">Verifica la tua posizione</button>
+  <p id="result"></p>
+
+  <script>
+    fetch('config.json')
+      .then(response => response.json())
+      .then(data => {
+        const radius = 30;
+
+        document.getElementById('checkPosition').addEventListener('click', () => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+              const userLat = position.coords.latitude;
+              const userLon = position.coords.longitude;
+
+              data.targets.forEach(target => {
+                const utmZone = `+proj=utm +zone=${target.zone} +${target.hemisphere === 'N' ? 'north' : 'south'} +datum=WGS84`;
+                const userUTM = proj4('WGS84', utmZone, [userLon, userLat]);
+
+                const distance = Math.sqrt(
+                  Math.pow(userUTM[0] - target.easting, 2) + 
+                  Math.pow(userUTM[1] - target.northing, 2)
+                );
+
+                if (distance <= radius) {
+                  document.getElementById('result').textContent = 'Codice ottenuto: ' + target.code;
+                }
+              });
+            }, () => {
+              document.getElementById('result').textContent = 'Errore nel recuperare la posizione.';
+            });
+          } else {
+            document.getElementById('result').textContent = 'Geolocalizzazione non supportata.';
+          }
+        });
+      });
+  </script>
+</body>
+</html>

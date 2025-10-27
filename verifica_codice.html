@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Verifica Codice</title>
+</head>
+<body>
+  <h1>Inserisci il Codice</h1>
+  <input type="text" id="codeInput" placeholder="Inserisci il codice" />
+  <button id="verifyCode">Verifica</button>
+
+  <script>
+    const enigmi = {
+      "OSIO123A": "enigma1.html",
+      "OSIO123B": "enigma2.html",
+      "OSIO123C": "enigma3.html",
+      "OSIO123D": "enigma4.html",
+      "OSIO123E": "enigma5.html"
+    };
+
+    document.getElementById('verifyCode').addEventListener('click', () => {
+      const code = document.getElementById('codeInput').value.trim().toUpperCase();
+      if (enigmi[code]) {
+        window.location.href = enigmi[code];
+      } else {
+        alert("Codice non valido.");
+      }
+    });
+  </script>
+</body>
+</html>

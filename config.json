@@ -1,0 +1,39 @@
+{
+  "targets": [
+    {
+      "code": "OSIO123A",
+      "easting": 545926,
+      "northing": 5151562,
+      "zone": 32,
+      "hemisphere": "N"
+    },
+    {
+      "code": "OSIO123B",
+      "easting": 545940,
+      "northing": 5151600,
+      "zone": 32,
+      "hemisphere": "N"
+    },
+    {
+      "code": "OSIO123C",
+      "easting": 545960,
+      "northing": 5151650,
+      "zone": 32,
+      "hemisphere": "N"
+    },
+    {
+      "code": "OSIO123D",
+      "easting": 545980,
+      "northing": 5151700,
+      "zone": 32,
+      "hemisphere": "N"
+    },
+    {
+      "code": "OSIO123E",
+      "easting": 546000,
+      "northing": 5151750,
+      "zone": 32,
+      "hemisphere": "N"
+    }
+  ]
+}
