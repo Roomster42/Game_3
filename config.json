@@ -4,8 +4,8 @@
       "name": "Punto 1",
       "zone": "32",
       "band": "T",
-      "easting": 545636,
-      "northing": 5051527,
+      "easting": 545606,
+      "northing": 5051492,
       "code": "NF5453DR",
       "enigma": 1
     },
@@ -13,8 +13,8 @@
       "name": "Punto 2",
       "zone": "32",
       "band": "T",
-      "easting": 554820,
-      "northing": 5075200,
+      "easting": 546123,
+      "northing": 5051630,
       "code": "QZ73H2LM",
       "enigma": 2
     },
@@ -22,8 +22,8 @@
       "name": "Punto 3",
       "zone": "32",
       "band": "T",
-      "easting": 553900,
-      "northing": 5075700,
+      "easting": 545758,
+      "northing": 5051852,
       "code": "K4R7M9TX",
       "enigma": 3
     },
@@ -31,8 +31,8 @@
       "name": "Punto 4",
       "zone": "32",
       "band": "T",
-      "easting": 554600,
-      "northing": 5074800,
+      "easting": 545374,
+      "northing": 5051852,
       "code": "B2N8C6JP",
       "enigma": 4
     },
@@ -40,8 +40,8 @@
       "name": "Punto 5",
       "zone": "32",
       "band": "T",
-      "easting": 555050,
-      "northing": 5075600,
+      "easting": 545614,
+      "northing": 5051699,
       "code": "W8V2S1QA",
       "enigma": 5
     }
