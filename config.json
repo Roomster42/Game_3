@@ -4,47 +4,92 @@
       "name": "Punto 1",
       "zone": "32",
       "band": "T",
-      "easting": 545606,
-      "northing": 5051492,
-      "code": "NF5453DR",
+      "easting": 527917,
+      "northing": 5050874,
+      "code": "JBPV3QOU",
       "enigma": 1
     },
     {
       "name": "Punto 2",
       "zone": "32",
       "band": "T",
-      "easting": 546123,
-      "northing": 5051630,
-      "code": "QZ73H2LM",
+      "easting": 528329,
+      "northing": 5050725,
+      "code": "RLSOHOSO",
       "enigma": 2
     },
     {
       "name": "Punto 3",
       "zone": "32",
       "band": "T",
-      "easting": 545758,
-      "northing": 5051852,
-      "code": "K4R7M9TX",
+      "easting": 527808,
+      "northing": 5050701,
+      "code": "0C1Q6U4V",
       "enigma": 3
     },
     {
       "name": "Punto 4",
       "zone": "32",
       "band": "T",
-      "easting": 545374,
-      "northing": 5051852,
-      "code": "B2N8C6JP",
+      "easting": 528320,
+      "northing": 5050613,
+      "code": "1VGW784T",
       "enigma": 4
     },
     {
       "name": "Punto 5",
       "zone": "32",
       "band": "T",
-      "easting": 545614,
-      "northing": 5051699,
-      "code": "W8V2S1QA",
+      "easting": 528236,
+      "northing": 5050471,
+      "code": "67UFR644",
       "enigma": 5
+    },
+    {
+      "name": "Punto 6",
+      "zone": "32",
+      "band": "T",
+      "easting": 527638,
+      "northing": 5051445,
+      "code": "SR6YDSKL",
+      "enigma": 6
+    },
+    {
+      "name": "Punto 7",
+      "zone": "32",
+      "band": "T",
+      "easting": 528184,
+      "northing": 5050500,
+      "code": "Q4GPO2LA",
+      "enigma": 7
+    },
+    {
+      "name": "Punto 8",
+      "zone": "32",
+      "band": "T",
+      "easting": 528430,
+      "northing": 5051618,
+      "code": "EK94QYNU",
+      "enigma": 8
+    },
+    {
+      "name": "Punto 9",
+      "zone": "32",
+      "band": "T",
+      "easting": 527824,
+      "northing": 5050785,
+      "code": "ULF8GDAW",
+      "enigma": 9
+    },
+    {
+      "name": "Punto 10",
+      "zone": "32",
+      "band": "T",
+      "easting": 527232,
+      "northing": 5050969,
+      "code": "2JCHI4OS",
+      "enigma": 10
     }
   ],
-  "note": "Coordinate in UTM WGS84. Distanza soglia: 30 metri."
+  "note": "Coordinate in UTM WGS84 (zona 32T) vicino a Triuggio (MB). Soglia 30 m."
 }

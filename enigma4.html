@@ -5,75 +5,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Enigma 4</title>
 <style>
-  body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:#0b1220; color:#e5e7eb; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px}
-  .wrap{width:100%; max-width:920px}
-  .head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
-  h1{margin:0; font-size:clamp(22px,4.8vw,36px)}
-  .sub{color:#94a3b8}
-  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
-  .chest{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:16px; text-align:center}
-  .svg{width:100%; height:140px; margin-bottom:10px}
-  .phrase{color:#cbd5e1}
-  a{color:#93c5fd}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;background:#0b1220;color:#e5e7eb;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .wrap{width:100%;max-width:960px}
+  .head{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;margin-bottom:18px}
+  h1{margin:0;font-size:clamp(22px,4.6vw,36px)}
+  .rules{margin:10px 0 0 18px;color:#cbd5e1}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .box{border-radius:16px;padding:16px;min-height:170px;display:flex;flex-direction:column;justify-content:center;text-align:center;cursor:pointer;user-select:none;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+  .box strong{display:block;margin-bottom:8px;letter-spacing:.3px}
+  .phrase{line-height:1.35}
+  .box:hover{transform:translateY(-2px)}
+  /* 3D realistic styles */
+  .blue{background:linear-gradient(180deg,#3b82f6,#1e3a8a);border:2px solid #60a5fa;box-shadow:inset 0 0 22px rgba(255,255,255,.15),0 10px 24px rgba(0,0,0,.6);color:#eaf2ff}
+  .white{background:linear-gradient(180deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;color:#0f172a;box-shadow:inset 0 0 24px rgba(255,255,255,.25),0 8px 20px rgba(0,0,0,.35)}
+  .black{background:linear-gradient(180deg,#1f2937,#0f172a);border:2px solid #475569;box-shadow:inset 0 0 28px rgba(255,255,255,.06),0 12px 28px rgba(0,0,0,.8)}
+  .bar{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+  .bar a{color:#93c5fd;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.35);padding:8px 12px;border-radius:12px;text-decoration:none}
+  .foot{margin-top:14px;color:#94a3b8;font-size:12px}
+
+  .timer{margin:10px 0 16px; padding:10px 12px; border-radius:12px; background:rgba(2,6,23,.5); border:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; align-items:center}
+  .timer .left{color:#cbd5e1}
+  .timer .time{font-weight:800; letter-spacing:.6px}
+  .disabled .box{pointer-events:none; opacity:.7; filter:saturate(.7)}
+
 </style>
+
+
+
 </head>
 <body>
   <div class="wrap">
-    <div class="head"><h1>Enigma 4</h1><span class="sub">Regola: Solo una fra le tre affermazioni è falsa.</span></div>
-    <div class="grid">
-      <div class="chest">
-        <svg class="svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scrigno">
-  <defs>
-    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/>
-    </linearGradient>
-    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/>
-    </linearGradient>
-  </defs>
-  <rect x="15" y="40" width="170" height="60" rx="8" fill="url(#g1)" stroke="#78350f" stroke-width="3"/>
-  <rect x="15" y="20" width="170" height="30" rx="8" fill="url(#g2)" stroke="#78350f" stroke-width="3"/>
-  <rect x="95" y="65" width="10" height="20" rx="2" fill="#111827" stroke="#eab308" stroke-width="2"/>
-  <circle cx="100" cy="75" r="3" fill="#facc15"/>
-</svg>
-        <div class="phrase"><strong>Scrigno A</strong><br>Scrigno A: Il tesoro è nello scrigno B.</div>
-      </div>
-      <div class="chest">
-        <svg class="svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scrigno">
-  <defs>
-    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/>
-    </linearGradient>
-    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/>
-    </linearGradient>
-  </defs>
-  <rect x="15" y="40" width="170" height="60" rx="8" fill="url(#g1)" stroke="#78350f" stroke-width="3"/>
-  <rect x="15" y="20" width="170" height="30" rx="8" fill="url(#g2)" stroke="#78350f" stroke-width="3"/>
-  <rect x="95" y="65" width="10" height="20" rx="2" fill="#111827" stroke="#eab308" stroke-width="2"/>
-  <circle cx="100" cy="75" r="3" fill="#facc15"/>
-</svg>
-        <div class="phrase"><strong>Scrigno B</strong><br>Scrigno B: Il tesoro non è nello scrigno C.</div>
-      </div>
-      <div class="chest">
-        <svg class="svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scrigno">
-  <defs>
-    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/>
-    </linearGradient>
-    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/>
-    </linearGradient>
-  </defs>
-  <rect x="15" y="40" width="170" height="60" rx="8" fill="url(#g1)" stroke="#78350f" stroke-width="3"/>
-  <rect x="15" y="20" width="170" height="30" rx="8" fill="url(#g2)" stroke="#78350f" stroke-width="3"/>
-  <rect x="95" y="65" width="10" height="20" rx="2" fill="#111827" stroke="#eab308" stroke-width="2"/>
-  <circle cx="100" cy="75" r="3" fill="#facc15"/>
-</svg>
-        <div class="phrase"><strong>Scrigno C</strong><br>Scrigno C: Il tesoro non è nello scrigno A.</div>
-      </div>
+    <div class="head">
+      <h1>Enigma 4</h1>
+      <ol class="rules">
+        <li>Ci sarà sempre almeno una frase che mostra solo affermazioni vere.</li>
+        <li>Ci sarà sempre almeno una frase che mostra solo affermazioni false.</li>
+        <li>Solo uno scrigno contiene un premio. Le altre due sono sempre vuote.</li>
+      </ol>
     </div>
-    <p style="margin-top:16px"><a href="verifica_codice.html">← Torna alla verifica codice</a></p>
+    <div class="timer"><div class="left">⏳ Tempo restante</div><div class="time" id="time">03:00</div></div>
+    <div class="grid">
+      <div class="box blue" onclick="handlePick(false, 'blue')">
+          <strong>Scrigno Blue</strong>
+          <div class="phrase">Tutte e tre le affermazioni sono false.</div>
+        </div>
+      <div class="box white" onclick="handlePick(true, 'white')">
+          <strong>Scrigno White</strong>
+          <div class="phrase">Due affermazioni sono false.</div>
+        </div>
+      <div class="box black" onclick="handlePick(false, 'black')">
+          <strong>Scrigno Black</strong>
+          <div class="phrase">I gioielli sono in una scatola con un'affermazione falsa.</div>
+        </div>
+    </div>
+    <div class="bar">
+      <a href="verifica_codice.html">← Verifica un altro codice</a>
+      <a href="index.html">🏠 Home</a>
+    </div>
+    <div class="foot">Stile: scrigni 3D realistici. Soluzione unica per pagina.</div>
   </div>
+
+<script>
+let countdown = 180;
+let locked = false;
+let intervalId = null;
+
+function updateTimer(){
+  const mm = Math.floor(countdown/60).toString().padStart(2,'0');
+  const ss = (countdown%60).toString().padStart(2,'0');
+  document.getElementById('time').textContent = `${mm}:${ss}`;
+}
+
+function tick(){
+  if(locked) return;
+  countdown--;
+  if(countdown <= 0){
+    locked = true;
+    document.body.classList.add('disabled');
+    clearInterval(intervalId);
+    alert("⏰ Tempo scaduto! Gli scrigni si richiudono…");
+    return;
+  }
+  updateTimer();
+}
+
+function startTimer(){
+  updateTimer();
+  intervalId = setInterval(tick, 1000);
+}
+
+function handlePick(correct, color){
+  if(locked) return;
+  locked = true;
+  document.body.classList.add('disabled');
+  clearInterval(intervalId);
+  if(correct){
+    alert("🎉 Congratulazioni! Lo scrigno " + color + " contiene i gioielli.");
+  }else{
+    alert("❌ Scrigno vuoto. Ritenta!");
+  }
+}
+
+window.addEventListener('DOMContentLoaded', startTimer);
+</script>
+
 </body>
 </html>

@@ -1,34 +1,7 @@
-ISTRUZIONI – Sistema di verifica posizione (UTM, WGS84)
 
-CONTENUTO DEL PACCHETTO
-- index.html          → Verifica posizione rispetto ai punti obiettivo (raggio 30 m)
-- config.json         → Elenco di 5 punti obiettivo in coordinate UTM (WGS84) con relativi codici
-- verifica_codice.html→ Verifica un codice e reindirizza alla pagina enigma corrispondente
-- enigma1.html..5     → Cinque enigmi logici (tre scrigni ciascuno)
-
-USO ONLINE (consigliato)
-1) Carica l'intero pacchetto su un hosting statico (GitHub Pages, Netlify, Vercel, oppure un server HTTP semplice).
-2) Apri index.html da smartphone e consenti l’accesso alla posizione quando richiesto.
-3) Premi “Verifica la tua posizione”. In alto vedrai le coordinate UTM lette e l’esito.
-   Se ti trovi entro 30 metri da un punto valido, comparirà il CODICE da usare per sbloccare l’enigma.
-4) Vai su “Verifica codice”, inserisci il codice e accedi alla pagina enigmaX.html.
-5) Gli enigmi sono autoconclusivi e non richiedono oggetti fisici.
-
-USO OFFLINE (fallback)
-- Puoi salvare la pagina sul dispositivo e aprirla offline.
-- ATTENZIONE: per motivi di sicurezza dei browser, il caricamento di config.json potrebbe non funzionare da file system.
-  Soluzioni:
-    a) Avvia un piccolo server locale (es. `python -m http.server`) nella cartella del pacchetto e apri http://127.0.0.1:8000/
-    b) Installa la pagina come PWA dopo averla visitata online, così resterà in cache.
-
-PERSONALIZZAZIONE
-- Modifica i punti in config.json. Mantieni il formato UTM (zona, banda, easting, northing) e il codice (8 caratteri).
-- Il raggio di verifica è impostato a 30 m nel codice (index.html). Puoi modificarlo cercando “<= 30” e cambiando il valore.
-- Puoi cambiare le frasi degli enigmi nei file enigmaX.html o ricrearli come preferisci.
-
-PRIVACY E ACCURATEZZA
-- Il sistema usa la Geolocation API del browser. L’accuratezza dipende dal dispositivo/ambiente.
-- Le conversioni UTM↔WGS84 sono implementate in JavaScript senza librerie: sufficienti per il gioco, non per rilievi ufficiali.
-- Suggerimento: prova il sistema in campo prima della giocata per tarare la soglia di distanza.
-
-BUON DIVERTIMENTO!
+AGGIORNAMENTO ENIGMI
+- Ogni pagina enigma (1–10) mostra un timer di 180 secondi.
+- Se il tempo scade senza scelta: esito negativo e scrigni bloccati.
+- Dopo un click (giusto o sbagliato): comparirà un messaggio e non sarà possibile riprovare (scrigni disabilitati).
+- Scrigni: blu, bianco, nero — stile 3D realistico.
+- Verifica codice: i 10 codici in config.json portano a enigma1..enigma10.
